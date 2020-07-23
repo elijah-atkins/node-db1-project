@@ -1,6 +1,7 @@
 const express = require("express");
 
-const AccountRouter = require("../data/router")
+const AccountRouter = require("./router")
+const notFound = require("./middleware/404")
 
 const server = express();
 
@@ -12,10 +13,6 @@ server.use("/api/accounts", AccountRouter)
 
 //custom middleware
 
-function notFound(req, res) {
-    res.status(404).send(`<h2>${req.url}? 404!</h2>`);
-  }
-  
   function logger(req, res, next) {
     console.log(`Request Method: ${req.method}`);
     console.log(`URL: ${req.url}`);

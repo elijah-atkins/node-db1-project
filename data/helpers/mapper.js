@@ -1,8 +1,7 @@
 module.exports = {
     intToBoolean,
     booleanToint,
-    accountsToBody,
-    actionToBody,
+    accountToBody
   };
   
   function intToBoolean(int) {
@@ -13,7 +12,7 @@ module.exports = {
     return bool === true ? 1 : 0;
   }
   
-  function accountsToBody(project) {
+  function accountToBody(project) {
     const result = {
       ...project,
       completed: intToBoolean(project.completed),
@@ -28,11 +27,3 @@ module.exports = {
   
     return result;
   }
-  
-  function actionToBody(action) {
-    return {
-      ...action,
-      completed: intToBoolean(action.completed),
-    };
-  }
-  
