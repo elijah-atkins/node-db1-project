@@ -9,26 +9,25 @@ module.exports = {
 };
 
 function get(id) {
-    let query = db("accounts as a");
-  
-    if (id) {
-      query.where("a.id", id).first();
-  
-      const promises = [query]; // [ accounts, actions ]
-  
-      return Promise.all(promises).then(function(results) {
-        let [account, actions] = results;
-  
-        if (account) {
-          account.actions = actions;
-  
-          return mappers.accountToBody(account);
+  let query = db('accounts');
+
+  if (id) {
+    return query
+      .where('id', id)
+      .first()
+      .then((action) => {
+        if (action) {
+          return mappers.accountToBody(action);
         } else {
           return null;
         }
       });
-    }
-    }
+  } else {
+    return query.then((accounts) => {
+      return accounts.map((account) => mappers.accountToBody(account));
+    });
+  }
+}
   
 
   function insert(account) {
